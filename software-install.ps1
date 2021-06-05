@@ -4,10 +4,12 @@
 # then run the script with powershell
 ######################################
 
+# Disable install confirmation (y/N)
+choco feature enable -n allowGlobalConfirmation
 
 # Usually always needed
 #######################
-choco install 7zip
+choco install 7zip -y
 choco install googlechrome
 choco install adobereader
 choco install jre8
