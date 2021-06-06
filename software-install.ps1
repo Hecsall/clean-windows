@@ -1,7 +1,7 @@
 #Requires -RunAsAdministrator
 
 
-# PS-Menu is a required module to run this script
+# PSMenu is a required module to run this script
 if (!$(Get-Module -ListAvailable PSMenu)) {
     Install-PackageProvider NuGet -Force;
     Set-PSRepository PSGallery -InstallationPolicy Trusted
