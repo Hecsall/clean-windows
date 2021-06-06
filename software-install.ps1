@@ -2,10 +2,10 @@
 
 
 # PS-Menu is a required module to run this script
-if (!$(Get-Module -ListAvailable PS-Menu)) {
+if (!$(Get-Module -ListAvailable PSMenu)) {
     Install-PackageProvider NuGet -Force;
     Set-PSRepository PSGallery -InstallationPolicy Trusted
-    Install-Module PS-Menu -Repository PSGallery
+    Install-Module PSMenu -Repository PSGallery
 }
 
 
