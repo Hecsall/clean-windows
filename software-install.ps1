@@ -9,6 +9,14 @@ if (!$(Get-Module -ListAvailable PS-Menu)) {
 }
 
 
+# Check if choco is installed, else install it
+if(-not(test-path "C:\ProgramData\chocolatey\choco.exe")){
+    Set-ExecutionPolicy Bypass -Scope Process -Force;
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+}
+
+
 # Disable choco install confirmation (y/N)
 echo "Checking Choco config"
 choco feature enable -n allowGlobalConfirmation
@@ -27,15 +35,16 @@ $software_list = [Collections.Generic.List[Object]](@(
     [PSCustomObject]@{ name='Discord';                      chocoName='discord';}
     [PSCustomObject]@{ name='Telegram';                     chocoName='telegram';}
     [PSCustomObject]@{ name='HWInfo';                       chocoName='hwinfo';}
-    [PSCustomObject]@{ name='Geforce Experience';           chocoName='geforce-experience';}
+    [PSCustomObject]@{ name='Nvidia Geforce Experience';    chocoName='geforce-experience';}
+    [PSCustomObject]@{ name='Nvidia Driver Only (latest)';  chocoName='nvidia-display-driver';}
     [PSCustomObject]@{ name='OBS Studio';                   chocoName='obs-studio';}
     [PSCustomObject]@{ name='QBitTorrent';                  chocoName='qbittorrent';}
     [PSCustomObject]@{ name='MSI Afterburner';              chocoName='msiafterburner';}
     [PSCustomObject]@{ name='ShareX';                       chocoName='sharex';}
     [PSCustomObject]@{ name='Spotify';                      chocoName='spotify';}
     [PSCustomObject]@{ name='GPU-Z';                        chocoName='gpu-z';}
-    [PSCustomObject]@{ name='Anydesk';                      chocoName='anydesk.portable';}
-    [PSCustomObject]@{ name='Rufus';                        chocoName='rufus.portable';}
+    [PSCustomObject]@{ name='Anydesk (Portable)';           chocoName='anydesk.portable';}
+    [PSCustomObject]@{ name='Rufus (Portable)';             chocoName='rufus.portable';}
     [PSCustomObject]@{ name='Adw Cleaner';                  chocoName='adwcleaner';}
     [PSCustomObject]@{ name='Autoruns';                     chocoName='autoruns';}
     [PSCustomObject]@{ name='WinSCP';                       chocoName='winscp';}
@@ -56,7 +65,7 @@ $software_list = [Collections.Generic.List[Object]](@(
 function runSoftwareSelection() {
     echo ""
     echo "Select the software you want to install, or press ESC to exit"
-    echo "(Move with ARROW KEYS, select with SPACEBAR)"
+    echo "(Move with ARROW KEYS, select with SPACEBAR, continue with ENTER)"
     echo ""
 
     $selected = menu $software_list.name -Multiselect -ReturnIndex
