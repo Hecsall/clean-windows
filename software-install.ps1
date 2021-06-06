@@ -68,7 +68,7 @@ function runSoftwareSelection() {
     echo "(Move with ARROW KEYS, select with SPACEBAR, continue with ENTER)"
     echo ""
 
-    $selected = menu $software_list.name -Multiselect -ReturnIndex
+    $selected = Show-Menu $software_list.name -Multiselect -ReturnIndex
 
     foreach ($software_index in $selected) {
         $software_chocoName = $software_list[$software_index].chocoName

@@ -74,7 +74,7 @@ function runEnhancementsSelection() {
     echo "(Move with ARROW KEYS, select with SPACEBAR, continue with ENTER)"
     echo ""
 
-    $selected = menu $enhancements_list.name -Multiselect -ReturnIndex
+    $selected = Show-Menu $enhancements_list.name -Multiselect -ReturnIndex
 
     foreach ($enhancement_index in $selected) {
         $enhancement = $enhancements_list[$enhancement_index]
